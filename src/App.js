@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Provider } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, signIn } from "./actions/increment"
 
 
-class App extends Component {
-  render() {
-    return (
-      <Provider>
-        <div className="App">
-          <h1>Hello</h1>
-        </div>
-      </Provider>
-    );
-  }
+const App = () => {
+  const counter = useSelector(state => state.counterReducer)
+  const isLogged = useSelector(state => state.loggedReducer)
+  const dispatch = useDispatch()
+  return (
+    <div>
+      <h1>Counter {counter}</h1>
+      <h1>Status: {isLogged ? `Signedin ` : "Not signed in"}</h1>
+      <button onClick={() => dispatch(increment(13))}>Increase</button>
+      <button onClick={() => dispatch(decrement(13))}>Decrease</button>
+      <button onClick={() => dispatch(signIn())}>Sign in</button>
+    </div>
+  )
 }
 
 export default App;
